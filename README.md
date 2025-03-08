@@ -12,7 +12,7 @@ It features user authentication, role-based redirection (admin & student), and a
 
 #Installation & Setup
   ✅ 1. Clone the Repository
-    git clone https://github.com/your-username/attendance-system.git  
+    git clone https://github.com/Bhargav-611/Attendance-System.git  
     cd attendance-system  
   ✅ 2. Create & Activate a Virtual Environment
     python -m venv venv  
