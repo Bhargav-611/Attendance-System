@@ -1,0 +1,7 @@
+#Install django
+python -m pip install Django
+
+#Required Librarys
+pip install django-bootstrap-v5
+pip install opencv-python
+pip install pyzbar
