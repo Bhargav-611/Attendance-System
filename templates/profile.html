@@ -1,0 +1,91 @@
+{% extends "layout.html" %}
+
+{% block title %}Profile{% endblock %}
+
+{% block container %}
+
+
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="card mb-4 shadow-lg">
+            <div class="card-body text-center">
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" 
+                     alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+                <h5 class="my-3">{{ obj.user.get_full_name }}</h5>
+                <p class="text-muted mb-1">{{ obj.get_degree_display }}</p>
+                {% if obj.user.role == "faculty" %}                
+                <p class="text-muted mb-4">Department: {{ obj.department }}</p>
+                {% else %}
+                <p class="text-muted mb-4">Graduation Date: {{ obj.graduation_date }}</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-4"><p class="mb-0">Full Name</p></div>
+                    <div class="col-sm-8"><p class="text-muted mb-0">{{ obj.user.get_full_name }}</p></div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-4"><p class="mb-0">Email</p></div>
+                    <div class="col-sm-8"><p class="text-muted mb-0">{{ obj.user.email }}</p></div>
+                </div>
+                <hr>
+                <div class="row">
+                    {% if obj.user.role == "faculty" %}
+                    <div class="col-sm-4"><p class="mb-0">Salary</p></div>
+                    <div class="col-sm-8"><p class="text-muted mb-0">{{ obj.salary }} ₹</p></div>
+                    {% else %}
+                    <div class="col-sm-4"><p class="mb-0">Phone</p></div>
+                    <div class="col-sm-8"><p class="text-muted mb-0">{{ obj.mobile_no }}</p></div>
+                    {% endif %}
+                </div>
+                <hr>
+                <div class="row">
+                    {% if obj.user.role == "faculty" %}
+                    <div class="col-sm-4"><p class="mb-0">Department</p></div>
+                    <div class="col-sm-8"><p class="text-muted mb-0">{{ obj.department }}</p></div>
+                    {% else %}
+                    <div class="col-sm-4"><p class="mb-0">Degree</p></div>
+                    <div class="col-sm-8"><p class="text-muted mb-0">{{ obj.get_degree_display }}</p></div>
+                    {% endif %}
+                </div>
+                <hr>
+                <div class="row">
+
+                    {% if obj.user.role == "faculty" %}
+                    <div class="col-sm-4"><p class="mb-0">Subjects</p></div>
+                    <div class="col-sm-8">
+                        {% for sub in obj.subject.all %}
+                            <p class="text-muted mb-0">{{ sub.name }}</p>
+                        {% empty %}
+                            <p class="text-muted mb-0">No subjects assigned</p>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="col-sm-4"><p class="mb-0">Graduation Date</p></div>
+                    <div class="col-sm-8"><p class="text-muted mb-0">{{ obj.graduation_date }}</p></div>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center">
+            {% if obj.user.role == "faculty" %}
+            <a href="{% url 'faculty_app:faculty_dashboard' %}" class="btn btn-primary">back</a>
+            {% else %}
+            <a href="{% url 'student_app:student_dashboard' %}" class="btn btn-primary">back</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+{% endblock %}

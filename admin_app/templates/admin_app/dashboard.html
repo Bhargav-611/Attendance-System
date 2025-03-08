@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block container %}
+<div class="container mt-5">
+    <h1 class="text-center">Admin Dashboard</h1>
+    
+    <div class="row mt-4">
+        <!-- Student Count -->
+        <div class="col-md-6">
+            <div class="card shadow p-4 text-center">
+                <h3>Total Students</h3>
+                <p class="display-4">{{ student_count }}</p>
+            </div>
+        </div>
+
+        <!-- Faculty Count -->
+        <div class="col-md-6">
+            <div class="card shadow p-4 text-center">
+                <h3>Total Faculty</h3>
+                <p class="display-4">{{ faculty_count }}</p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="row mt-4">
+        <div class="col-sm-3">
+            <div class="card">
+                <div class="card-body">
+                <h5 class="card-title">Manage User</h5>
+                <p class="card-text">You can add, edit or delete user here.</p>
+                <a href="{% url "admin_app:manage_user" %}" class="btn btn-primary">Go</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-3">
+            <div class="card">
+                <div class="card-body">
+                <h5 class="card-title">Notification</h5>
+                <p class="card-text">You can send notification to Student and Faculty here.</p>
+                <a href="{% url "admin_app:notification" %}" class="btn btn-primary">Go</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-3">
+            <div class="card">
+                <div class="card-body">
+                <h5 class="card-title">Leave</h5>
+                <p class="card-text">You can Accept or Reject Leave here.</p>
+                <a href="{% url "admin_app:leave" %}" class="btn btn-primary">Go</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-3">
+            <div class="card">
+                <div class="card-body">
+                <h5 class="card-title">Mark Faculty Attendance</h5>
+                <p class="card-text">You can mark Faculty Attendance</p>
+                <a href="{% url "admin_app:mark_faculty_attendance" %}" class="btn btn-primary">Go</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="text-center mt-4">
+        <a href="{% url 'admin:index' %}" class="btn btn-primary">Go to Django Admin</a>
+        <a href="{% url 'registration:logout' %}" class="btn btn-danger">Logout</a>
+    </div>
+</div>
+{% endblock %}

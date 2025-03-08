@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block title %}Leave{% endblock %}
+
+{% block container %}
+
+<div class="container mt-5">
+    <h3 class="text-center mb-4">Your Leave Requests</h3>
+
+    {% if leaves %}
+        <table class="table table-light table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Reason</th>
+                    <th>Description</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for leave in leaves %}
+                    <tr>
+                        <td>{{ leave.reason }}</td>
+                        <td>{{ leave.discription }}</td>
+                        <td>{{ leave.start_date }}</td>
+                        <td>{{ leave.end_date }}</td>
+                        <td>
+                            <span class="badge 
+                                {% if leave.status == 'approved' %} bg-success 
+                                {% elif leave.status == 'rejected' %} bg-danger 
+                                {% else %} bg-warning text-dark {% endif %}">
+                                {{ leave.status|title }}
+                            </span>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="alert alert-info text-center">No leave requests found.</div>
+    {% endif %}
+</div>
+
+{% endblock %}

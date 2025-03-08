@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block title %}Register{% endblock %}
+
+{% block container %}
+<div class="container d-flex justify-content-center align-items-center">
+    <div class="card p-4 shadow-lg" style="width: 30rem;">
+        <h2 class="text-center mb-4">Register</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary w-100">Register</button>
+        </form>
+        <div class="text-center mt-3">
+            <a href="{% url 'registration:login' %}" class="text-decoration-none">Already have an account? Log in</a>
+        </div>
+    </div>
+    <a href="{% url 'admin_app:admin_dashboard' %}" class="btn btn-primary">back</a>
+
+</div>
+{% endblock %}

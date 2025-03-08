@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block container %}
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="card p-4 shadow-lg" style="width: 30rem;">
+        <h2 class="text-center mb-4">Log In</h2>
+
+        {% if form.errors %}
+            <div class="alert alert-danger">
+                Incorrect username or password.
+            </div>
+        {% endif %}
+
+        <form method="post" action="{% url 'registration:login' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                {{ form.username.label_tag }}
+                {{ form.username }}
+            </div>
+            <div class="mb-3">
+                {{ form.password.label_tag }}
+                {{ form.password }}
+            </div>
+            <button type="submit" class="btn btn-success w-100">Submit</button>
+        </form>
+
+        {% comment %} <div class="text-center mt-3">
+            <a href="{% url 'student_register' %}" class="text-decoration-none">Register as Student</a> |
+            <a href="{% url 'faculty_register' %}" class="text-decoration-none">Register as Faculty</a>
+        </div> {% endcomment %}
+
+        {% comment %} <div class="text-center mt-3">
+            <a href="{% url 'register' %}" class="text-decoration-none">Don't have an account? Register here</a>
+        </div> {% endcomment %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}Leave Request{% endblock %}
+
+{% block container %}
+
+<div class="container mt-5">
+    <h3 class="text-center">Apply for Leave</h3>
+    <div class="card p-4 shadow">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label class="form-label">Reason</label>
+                {{ form.reason }}
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                {{ form.discription }}
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Start Date</label>
+                {{ form.start_date }}
+            </div>
+            <div class="mb-3">
+                <label class="form-label">End Date</label>
+                {{ form.end_date }}
+            </div>
+            <button type="submit" class="btn btn-primary">Submit Leave Request</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

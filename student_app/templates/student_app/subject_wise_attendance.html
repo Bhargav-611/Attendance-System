@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}Attendance{% endblock %}
+
+{% block container %}
+
+<div class="container mt-5">
+    <h3 class="text-center mb-4">Subject-wise Attendance Report</h3>
+    <table class="table table-light">
+        <thead>
+            <tr>
+                <th>Subject</th>
+                <th>Overall Attendance</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in subject_attendance %}
+                <tr>
+                    <td>{{ record.subject }}</td>
+                    <td style="background-color: {% if record.attendance_percentage >= 75 %}green{% elif record.attendance_percentage >= 50 %}yellow{% else %}red{% endif %};">
+                        {{ record.attendance_percentage }}%
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

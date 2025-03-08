@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block title %}Leave information{% endblock %}
+
+{% block container %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-center mb-3 text-white">
+        <h2>Leave List</h2>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Username</th>
+                    <th>Role</th>
+                    <th>Reason</th>
+                    <th>Status</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+            <tbody class="table-light">
+                {% for leave in leaves %}
+                <tr>
+                    <td>{{ leave.user.username }}</td>
+                    <td>{{ leave.user.role }}</td>
+                    <td>{{ leave.reason }}</td>
+                    <td>{{ leave.status }}</td>
+                    <td>
+                        <a href="{% url 'admin_app:leave_edit' leave.id %}" class="btn btn-warning btn-sm">Edit</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <a href="{% url 'admin_app:admin_dashboard' %}" class="btn btn-primary">back</a>
+
+</div>
+
+{% endblock %}

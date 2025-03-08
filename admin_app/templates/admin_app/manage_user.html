@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block title %}Manage User{% endblock %}
+
+{% block container %}
+<div class="container mt-5">
+    <h1 class="text-center">Admin Dashboard</h1>
+    
+    <div class="card text-center" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Student</h5>
+          <p class="card-text">You can add, delete, and update student information here.</p>
+          <a href="{% url 'admin_app:student_info' %}" class="btn btn-primary">Go</a>
+        </div>
+    </div>
+
+    <div class="card text-center" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Faculty</h5>
+          <p class="card-text">You can add, delete, and update faculty information here.</p>
+          <a href="{% url "admin_app:faculty_info" %}" class="btn btn-primary">Go</a>
+        </div>
+    </div>
+    <a href="{% url 'admin_app:admin_dashboard' %}" class="btn btn-primary">back</a>
+
+</div>
+{% endblock %}

@@ -1,0 +1,93 @@
+{% extends "layout.html" %}
+
+{% block title %}Faculty Dashboard{% endblock %}
+
+{% block container %}
+<div class="container mt-5">
+    <h2 class="text-white">Welcome, {{ user.username }}!</h2>
+
+    <div class="row mt-4">
+        <div class="col-sm-3 mt-4">
+            <div class="card">
+                <div class="card-body">
+                <h5 class="card-title">Profile</h5>
+                <p class="card-text">show profile information</p>
+                <a href="{% url "faculty_app:profile" %}" class="btn btn-success">Go</a>
+               </div>
+            </div>
+        </div>
+
+        <div class="col-sm-3 mt-4">
+            <div class="card">
+                <div class="card-body">
+                <h5 class="card-title">Mark Attendance</h5>
+                <p class="card-text">Mark attendance of students</p>
+                <a href="{% url "faculty_app:mark_student_attendance" %}" class="btn btn-success">Go</a>
+               </div>
+            </div>
+        </div>
+
+        <div class="col-sm-3 mt-4">
+            <div class="card">
+                <div class="card-body">
+                <h5 class="card-title">Edit Attendance</h5>
+                <p class="card-text">Edit attendance records</p>
+                <a href="{% url "faculty_app:show_student_attendance" %}" class="btn btn-success">Go</a>
+               </div>
+            </div>
+        </div>
+
+        <div class="col-sm-3 mt-4">
+            <div class="card">
+                <div class="card-body">
+                <h5 class="card-title">View Attendance</h5>
+                <p class="card-text">show attendance records</p>
+                <a href="{% url "faculty_app:view_attendance"  %}" class="btn btn-success">Go</a>
+               </div>
+            </div>
+        </div>
+
+        <div class="col-sm-3 mt-4">
+            <div class="card">
+                <div class="card-body">
+                <h5 class="card-title">Generate Report</h5>
+                <p class="card-text">you can download your attendance report</p>
+                <a href="{% url "faculty_app:generate_report" %}" class="btn btn-success">Go</a>
+               </div>
+            </div>
+        </div>
+
+        <div class="col-sm-3 mt-4">
+            <div class="card">
+                <div class="card-body">
+                <h5 class="card-title">Notification</h5>
+                <p class="card-text">show notification sand by admin</p>
+                <a href="{% url "faculty_app:show_notification" %}" class="btn btn-success">Go</a>
+               </div>
+            </div>
+        </div>
+
+        <div class="col-sm-3 mt-4">
+            <div class="card">
+                <div class="card-body">
+                <h5 class="card-title">Request Leave</h5>
+                <p class="card-text">sand leave request to admin</p>
+                <a href="{% url "faculty_app:request_leave" %}" class="btn btn-success">Go</a>
+               </div>
+            </div>
+        </div>
+
+        <div class="col-sm-3 mt-4">
+            <div class="card">
+                <div class="card-body">
+                <h5 class="card-title">Show Leave Status</h5>
+                <p class="card-text">show your leave is approved or not</p>
+                <a href="{% url "faculty_app:view_leave" %}" class="btn btn-success">Go</a>
+               </div>
+            </div>
+        </div>
+        
+    </div>
+    <a href="{% url 'registration:logout' %}" class="btn btn-danger">Logout</a>
+</div>
+{% endblock %}

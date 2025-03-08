@@ -1,0 +1,98 @@
+{% extends "layout.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block container %}
+
+<div class="container mt-5 ">
+    <h1 class="text-center text-white">Admin Dashboard</h1>
+    <h2 class="text-white">Welcome, {{ user.username }}!</h2>
+    <p class="text-white">Your email: {{ user.email }}</p>
+    
+    {% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+    {% endif %}
+
+    <div class="row mt-4">
+        <div class="col-sm-3 mt-4">
+            <div class="card">
+                <div class="card-body">
+                <h5 class="card-title">Profile</h5>
+                <p class="card-text">show profile information</p>
+                <a href="{% url "student_app:profile" %}" class="btn btn-success">Go</a>
+               </div>
+            </div>
+        </div>
+
+        <div class="col-sm-3 mt-4">
+            <div class="card">
+                <div class="card-body">
+                <h5 class="card-title">Daily Attendance</h5>
+                <p class="card-text">show overall attendance information</p>
+                <a href="{% url "student_app:daily_attendance" %}" class="btn btn-success">Go</a>
+               </div>
+            </div>
+        </div>
+
+        <div class="col-sm-3 mt-4">
+            <div class="card">
+                <div class="card-body">
+                <h5 class="card-title">Subject wise Attendance</h5>
+                <p class="card-text">show your attendance information for each subject</p>
+                <a href="{% url "student_app:subject_wise_attendance" %}" class="btn btn-success">Go</a>
+               </div>
+            </div>
+        </div>
+
+        <div class="col-sm-3 mt-4">
+            <div class="card">
+                <div class="card-body">
+                <h5 class="card-title">Generate Report</h5>
+                <p class="card-text">you can download your attendance report</p>
+                <a href="{% url "student_app:generate_report" %}" class="btn btn-success">Go</a>
+               </div>
+            </div>
+        </div>
+
+        <div class="col-sm-3 mt-4">
+            <div class="card">
+                <div class="card-body">
+                <h5 class="card-title">Notification</h5>
+                <p class="card-text">show notification sand by admin</p>
+                <a href="{% url "student_app:show_notification" %}" class="btn btn-success">Go</a>
+               </div>
+            </div>
+        </div>
+
+        <div class="col-sm-3 mt-4">
+            <div class="card">
+                <div class="card-body">
+                <h5 class="card-title">Request Leave</h5>
+                <p class="card-text">sand leave request to admin</p>
+                <a href="{% url "student_app:request_leave" %}" class="btn btn-success">Go</a>
+               </div>
+            </div>
+        </div>
+
+        <div class="col-sm-3 mt-4">
+            <div class="card">
+                <div class="card-body">
+                <h5 class="card-title">Show Leave Status</h5>
+                <p class="card-text">show your leave is approved or not</p>
+                <a href="{% url "student_app:view_leave" %}" class="btn btn-success">Go</a>
+               </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="mt-4 justify-con">
+        <a href="{% url 'registration:logout' %}" class="btn btn-danger">Logout</a>
+    </div>
+</div>
+{% endblock %}
