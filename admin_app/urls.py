@@ -22,6 +22,6 @@ urlpatterns = [
 
     path("admin_dashboard/manage_user/notification", views.notification, name="notification"),
     path("admin_dashboard/manage_user/leave", views.leave, name="leave"),
-    path("admin_dashboard/manage_user/<int:l_id>/leave_edit", views.leave_edit, name="leave_edit"),
+    path("admin_dashboard/manage_user/update_leave_status", views.update_leave_status, name="update_leave_status"),
 
 ]

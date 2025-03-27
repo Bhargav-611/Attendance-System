@@ -9,9 +9,8 @@
     <div class="col-lg-6">
         <div class="card mb-4 shadow-lg">
             <div class="card-body text-center">
-                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" 
-                     alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
-                <h5 class="my-3">{{ obj.user.get_full_name }}</h5>
+                <img src="{{ obj.image.url }}" class="rounded-circle mb-2" width="150" height="150">
+                <h5 class="my-3">{{ obj.user.username }}</h5>
                 <p class="text-muted mb-1">{{ obj.get_degree_display }}</p>
                 {% if obj.user.role == "faculty" %}                
                 <p class="text-muted mb-4">Department: {{ obj.department }}</p>
@@ -25,7 +24,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-4"><p class="mb-0">Full Name</p></div>
-                    <div class="col-sm-8"><p class="text-muted mb-0">{{ obj.user.get_full_name }}</p></div>
+                    <div class="col-sm-8"><p class="text-muted mb-0">{{ obj.name }}</p></div>
                 </div>
                 <hr>
                 <div class="row">

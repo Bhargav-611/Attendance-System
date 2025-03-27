@@ -16,6 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     # path('jet_api/', include('jet_django.urls')),
@@ -25,4 +27,4 @@ urlpatterns = [
     path("admin_app/", include("admin_app.urls")),
     path("faculty_app/", include("faculty_app.urls")),
     path("student_app/", include("student_app.urls")),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

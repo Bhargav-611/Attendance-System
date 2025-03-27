@@ -20,8 +20,9 @@ class Student(models.Model):
         ("EC", "Electronics & Communication"),
     ]
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name="student_id")
-    mobile_no = models.CharField(max_length=15)
     name = models.CharField(max_length=100)
+    image = models.ImageField(upload_to='photos/', default="ava3.jpg")
+    mobile_no = models.CharField(max_length=15)
     degree = models.CharField(max_length=50, choices=DEGREE_CHOICES)
     graduation_date = models.DateField()
     subjects = models.ManyToManyField(Subject, blank=True)
@@ -37,6 +38,7 @@ class Faculty(models.Model):
         ("EC", "Electronics & Communication"),
     ]
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name="faculty")
+    image = models.ImageField(upload_to='photos/', default="ava3.jpg")
     name = models.CharField(max_length=100)
     department = models.CharField(max_length=50, choices=DEPARTMENT_CHOICES)
     salary = models.IntegerField(default=0)

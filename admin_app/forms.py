@@ -7,19 +7,26 @@ from registration.models import CustomUser
 class StudentForm(forms.ModelForm):
     username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}))
-    # role = forms.ChoiceField(choices=CustomUser.ROLE_CHOICES, widget=forms.Select(attrs={'class': 'form-control'}))
+    # # role = forms.ChoiceField(choices=CustomUser.ROLE_CHOICES, widget=forms.Select(attrs={'class': 'form-control'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}), required=False)
     class Meta:
         model = Student
-        fields = ["username", "email", "password", "name", "mobile_no", "degree", "graduation_date"]
+        fields = ["username", "email", "password", "name", "image", "mobile_no", "degree", "graduation_date"]
         widgets = {
             'username': forms.Select(attrs={'class': 'form-control'}),
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
             'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'image': forms.FileInput(attrs={'class': 'form-control'}),
             'mobile_no': forms.TextInput(attrs={'class': 'form-control'}),
             'degree': forms.Select(attrs={'class': 'form-control'}),
             'graduation_date': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
         }
+    
+    def __init__(self, *args, **kwargs):
+        super(StudentForm, self).__init__(*args, **kwargs)
+        if self.instance and self.instance.pk:
+            self.fields['username'].initial = self.instance.user.username
+            self.fields['email'].initial = self.instance.user.email
         
     def clean_password(self):
         password = self.cleaned_data.get("password")
@@ -30,10 +37,22 @@ class StudentForm(forms.ModelForm):
 
         return password
     
+
     def save(self, commit=True):
         student = super().save(commit=False)
-        student.password = make_password(self.cleaned_data["password"])
+
+        if hasattr(student, "user") and student.user:
+            user = student.user
+        else:
+            user = CustomUser()
+
+        user.username = self.cleaned_data['username']
+        user.email = self.cleaned_data['email']
+        if self.cleaned_data['password']:
+            user.set_password(self.cleaned_data['password'])
         if commit:
+            user.save()
+            student.user = user
             student.save()
         return student
 
@@ -51,14 +70,21 @@ class FacultyForm(forms.ModelForm):
     )
     class Meta:
         model = Faculty
-        fields = ["username", "email", "password", "name", "department", "salary", "subject"]
+        fields = ["username", "email", "password", "name", "image", "department", "salary", "subject"]
         widgets = {
             'username': forms.TextInput(attrs={'class': 'form-control'}),
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
             'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'image': forms.FileInput(attrs={'class': 'form-control'}),
             'department': forms.Select(attrs={'class': 'form-control'}),
             'salary': forms.NumberInput(attrs={'class': 'form-control'}),
         }
+
+    def __init__(self, *args, **kwargs):
+        super(FacultyForm, self).__init__(*args, **kwargs)
+        if self.instance and self.instance.pk:
+            self.fields['username'].initial = self.instance.user.username
+            self.fields['email'].initial = self.instance.user.email
 
     def clean_password(self):
         password = self.cleaned_data.get("password")
@@ -71,8 +97,16 @@ class FacultyForm(forms.ModelForm):
     
     def save(self, commit=True):
         faculty = super().save(commit=False)
-        faculty.password = make_password(self.cleaned_data["password"])
+        if hasattr(faculty, "user") and faculty.user:
+            user = faculty.user
+        else:
+            user = CustomUser()
+        user.username = self.cleaned_data['username']
+        user.email = self.cleaned_data['email']
+        if self.cleaned_data['password']:
+            user.set_password(self.cleaned_data['password'])
         if commit:
+            user.save()
             faculty.save()
         return faculty
 

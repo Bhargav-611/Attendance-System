@@ -32,24 +32,34 @@ def student_info(request):
 @staff_member_required
 def student_add(request):
     if request.method == "POST":
-        form = StudentForm(request.POST)
-        if form.is_valid():
-            query = CustomUser.objects.filter(username=form.cleaned_data["username"])
-            u = get_object_or_404(query)
-            if u:
-                messages.error(request, "Username already exists")
-                return redirect("admin_app:student_add")
-            else:
-                user = CustomUser.objects.create_user(
-                    username=form.cleaned_data["username"],
-                    email=form.cleaned_data["email"],
-                    password=form.cleaned_data["password"],
-                    role="student"
-                )
-                student = form.save(commit=False)
-                student.user = user
-                student.save()
+        form = StudentForm(request.POST, request.FILES)   # for upload image in html file
+        username = request.POST.get("username")
+        email = request.POST.get("email")
+        password = request.POST.get("password")
 
+        if not username or not email or not password:
+            messages.error(request, "Username, Email, and Password are required.")
+            return redirect("admin_app:student_add")
+
+        if CustomUser.objects.filter(username=username).exists():
+            messages.error(request, "Username already exists")
+            return redirect("admin_app:student_add")
+
+        if form.is_valid():
+            # Create CustomUser
+            user = CustomUser.objects.create_user(
+                username=username,
+                email=email,
+                password=password,
+                role="student"
+            )
+
+            # Create Student and associate it with the user
+            student = form.save(commit=False)
+            student.user = user
+            student.save()
+
+            messages.success(request, "Student added successfully!")
             return redirect("admin_app:student_info")
     else:
         form = StudentForm()
@@ -59,7 +69,8 @@ def student_add(request):
 @staff_member_required
 def student_edit(request, s_id):
     student = get_object_or_404(Student, pk=s_id)
-
+    user1 = get_object_or_404(CustomUser, pk=student.user.id)
+    student.user = user1
     if request.method == "POST":
         form = StudentForm(request.POST, instance=student)
         if form.is_valid():
@@ -87,25 +98,35 @@ def faculty_info(request):
 @staff_member_required
 def faculty_add(request):
     if request.method == "POST":
-        form = FacultyForm(request.POST)
+
+        form = FacultyForm(request.POST, request.FILES)     # for upload image in html file
+        username = request.POST.get("username")
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+
+        if not username or not email or not password:
+            messages.error(request, "Username, Email, and Password are required.")
+            return redirect("admin_app:faculty_add")
+
+        if CustomUser.objects.filter(username=username).exists():
+            messages.error(request, "Username already exists")
+            return redirect("admin_app:faculty_add")
+
         if form.is_valid():
-            u = get_object_or_404(CustomUser, username=form.cleaned_data["username"])
+            # Create CustomUser
+            user = CustomUser.objects.create_user(
+                username=username,
+                email=email,
+                password=password,
+                role="faculty"
+            )
 
-            if u:
-                messages.error(request, "Username already exists")
-                return redirect("admin_app:faculty_add")
-            else:
-                user = CustomUser.objects.create_user(
-                    username=form.cleaned_data["username"],
-                    email=form.cleaned_data["email"],
-                    password=form.cleaned_data["password"],
-                    role="faculty"
-                )
-                faculty = form.save(commit=False)
-                faculty.user = user
-                faculty.save()
+            faculty = form.save(commit=False)
+            faculty.user = user
+            faculty.save()
 
-                return redirect("admin_app:faculty_info")
+            messages.success(request, "faculty added successfully!")
+            return redirect("admin_app:faculty_info")
     else:
         form = FacultyForm()
     return render(request, "admin_app/register.html", {"form": form})
@@ -149,9 +170,29 @@ def leave(request):
     leaves = Leave.objects.all()
     return render(request, "admin_app/leave.html", {"leaves": leaves})
 
-@staff_member_required
-def leave_edit(request, l_id):
-    return redirect(f'/admin/admin_app/leave/{l_id}/change')
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+
+@csrf_exempt
+def update_leave_status(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            leave_id = data.get("leave_id")
+            new_status = data.get("status")
+
+            leave = Leave.objects.get(id=leave_id)
+            leave.status = new_status
+            leave.save()
+
+            return JsonResponse({"success": True})
+        except Leave.DoesNotExist:
+            return JsonResponse({"success": False, "error": "Leave not found"})
+        except Exception as e:
+            return JsonResponse({"success": False, "error": str(e)})
+
+    return JsonResponse({"success": False, "error": "Invalid request"})
 
 
 import cv2 # type: ignore
