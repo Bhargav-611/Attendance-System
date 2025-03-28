@@ -4,24 +4,111 @@
 
 {% block container %}
 <div class="container mt-5">
-    <h1 class="text-center">Admin Dashboard</h1>
-    
-    <div class="card text-center" style="width: 18rem;">
-        <div class="card-body">
-          <h5 class="card-title">Student</h5>
-          <p class="card-text">You can add, delete, and update student information here.</p>
-          <a href="{% url 'admin_app:student_info' %}" class="btn btn-primary">Go</a>
-        </div>
-    </div>
+  <h1 class="text-center">Admin Dashboard</h1>
 
-    <div class="card text-center" style="width: 18rem;">
-        <div class="card-body">
-          <h5 class="card-title">Faculty</h5>
-          <p class="card-text">You can add, delete, and update faculty information here.</p>
-          <a href="{% url "admin_app:faculty_info" %}" class="btn btn-primary">Go</a>
-        </div>
-    </div>
-    <a href="{% url 'admin_app:admin_dashboard' %}" class="btn btn-primary">back</a>
+  <div class="dashboard-cards">
+      <div class="card">
+          <div class="card-body">
+              <h5 class="card-title">Student</h5>
+              <p class="card-text">You can add, delete, and update student information here.</p>
+              <a href="{% url 'admin_app:student_info' %}" class="btn btn-primary">Go</a>
+          </div>
+      </div>
 
+      <div class="card">
+          <div class="card-body">
+              <h5 class="card-title">Faculty</h5>
+              <p class="card-text">You can add, delete, and update faculty information here.</p>
+              <a href="{% url 'admin_app:faculty_info' %}" class="btn btn-primary">Go</a>
+          </div>
+      </div>
+  </div>
+
+  <a href="{% url 'admin_app:admin_dashboard' %}" class="btn btn-primary back-btn">Back</a>
 </div>
+
+{% endblock %}
+
+
+{% block style %}
+body {
+  background-color: #121212; /* Dark background */
+  color: #ffffff; /* Light text color */
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  text-align: center;
+  padding-top: 50px;
+}
+
+/* Heading Styling */
+h1 {
+  color: #ffffff;
+  margin-bottom: 30px;
+  font-size: 2rem;
+  text-align: center;
+}
+
+/* Card Styles */
+.card {
+  background-color: #1e1e1e;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  width: 100%;
+  max-width: 300px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  text-align: center;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 6px 15px rgba(255, 255, 255, 0.2);
+}
+
+/* Flexbox for same-line layout */
+.dashboard-cards {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* Card Title */
+.card-title {
+  font-size: 1.5rem;
+  color: #00adb5; /* Teal accent color */
+}
+
+/* Card Text */
+.card-text {
+  font-size: 1rem;
+  color: #cccccc;
+  margin-bottom: 15px;
+}
+
+/* Buttons */
+.btn-primary {
+  background-color: #00adb5;
+  border: none;
+  padding: 10px 15px;
+  font-size: 1rem;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: #007b8f;
+}
+
+/* Back Button */
+.back-btn {
+  margin-top: 20px;
+}
+
+
 {% endblock %}

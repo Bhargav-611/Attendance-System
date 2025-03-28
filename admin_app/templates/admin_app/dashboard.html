@@ -73,3 +73,58 @@
     </div>
 </div>
 {% endblock %}
+
+
+{% block style %}
+body {
+    background-color: #121212; /* Dark background */
+    color: #ffffff; /* Light text color */
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    color: #ffffff; /* White color for headings */
+}
+
+.card {
+    background-color: #1e1e1e; /* Dark card background */
+    border: none;
+    border-radius: 8px;
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
+}
+
+.card-title {
+    font-size: 1.25rem;
+    color: #007bff; /* Primary color for card titles */
+}
+
+.btn-primary {
+    background-color: #007bff; /* Primary button color */
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
+
+.btn-danger {
+    background-color: #dc3545; /* Danger button color */
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    transition: background-color 0.3s;
+}
+
+.text-center {
+    margin-top: 20px;
+}
+
+{% endblock %}
