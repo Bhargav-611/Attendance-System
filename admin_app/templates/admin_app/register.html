@@ -9,13 +9,94 @@
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit" class="btn btn-primary w-100">Register</button>
+            <div class="btn-container">
+                <button type="submit" class="btn btn-primary">Register</button>
+                <a href="{% url 'admin_app:admin_dashboard' %}" class="btn btn-primary">back</a>
+            </div>
         </form>
-        <div class="text-center mt-3">
-            <a href="{% url 'registration:login' %}" class="text-decoration-none">Already have an account? Log in</a>
-        </div>
     </div>
-    <a href="{% url 'admin_app:admin_dashboard' %}" class="btn btn-primary">back</a>
 
 </div>
 {% endblock %}
+
+
+{% block style %}
+body {
+    background-color: #121212; /* Dark background */
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Card Styling */
+.card {
+    background-color: #1e1e1e;
+    border: none;
+    border-radius: 10px;
+    padding:0px 30px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
+
+h2 {
+    font-size: 2rem;
+    color: #00adb5; /* Teal accent color */
+    margin-bottom: 20px;
+}
+
+/* Form Styling */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Input Fields */
+input, textarea, select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    background-color: #222;
+    color: #fff;
+}
+
+/* Buttons */
+.btn-primary, button {
+    background-color: #00adb5;
+    border: none;
+    padding: 10px 15px;
+    font-size: 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    color: white;
+    width: 100px;
+    text-align: center;
+}
+
+.btn-primary:hover, button:hover {
+    background-color: #007b8f;
+}
+
+/* Buttons Alignment */
+.btn-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+label {
+    width: 100%;
+    text-align: left;
+    font-size:17px;
+}
+
+
+{% endblock  %}

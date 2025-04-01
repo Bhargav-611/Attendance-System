@@ -21,6 +21,72 @@
         {% else %}
             <div class="alert alert-info text-center">No notifications available.</div>
         {% endif %}
+        <div class="d-flex justify-content-center">
+            {% if notifications and notifications.0.to == "faculty" %}
+                <a href="{% url 'faculty_app:faculty_dashboard' %}" class="btn btn-primary">Back</a>
+            {% elif leaves %}
+                <a href="{% url 'student_app:student_dashboard' %}" class="btn btn-primary">Back</a>
+            {% endif %}
+        </div>
     </div>
+
+{% endblock %}
+
+{% block style %}
+/* General Styling */
+body {
+    background-color: #212529; /* Dark background */
+    color: white;
+}
+
+/* Container Styling */
+.container {
+    background: rgba(255, 255, 255, 0.1); /* Transparent effect */
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* Notifications List */
+.list-group-item {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+/* Notification Title */
+.list-group-item strong {
+    font-size: 18px;
+    color: #343a40; /* Darker text for title */
+}
+
+/* Notification Message */
+.list-group-item p {
+    font-size: 16px;
+    color: #555;
+    margin-top: 5px;
+}
+
+/* Notification Timestamp */
+.list-group-item small {
+    color: #777;
+}
+
+/* Alert Message */
+.alert-info {
+    background-color: #17a2b8;
+    color: white;
+    border: none;
+    font-size: 16px;
+}
+
+/* Center Heading */
+h2 {
+    text-align: center;
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+}
 
 {% endblock %}

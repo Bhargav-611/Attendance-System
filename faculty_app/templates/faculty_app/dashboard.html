@@ -4,7 +4,9 @@
 
 {% block container %}
 <div class="container mt-5">
+    <h1 class="text-center text-white">Faculty Dashboard</h1>
     <h2 class="text-white">Welcome, {{ user.username }}!</h2>
+    <p class="text-white">Email: {{ user.email }}</p>
 
     <div class="row mt-4">
         <div class="col-sm-3 mt-4">
@@ -90,4 +92,73 @@
     </div>
     <a href="{% url 'registration:logout' %}" class="btn btn-danger">Logout</a>
 </div>
+{% endblock %}
+
+{% block style %}
+/* Dark Theme */
+body {
+    background-color: #212529; /* Dark background */
+    color: white;
+}
+
+/* Container Styling */
+.container {
+    background: rgba(255, 255, 255, 0.1); /* Transparent effect */
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* Card Styling */
+.card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease-in-out;
+    min-height: 200px;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+/* Card Content */
+.card-body {
+    text-align: center;
+    color: black;
+}
+
+/* Headings */
+h1, h2, p {
+    text-align: center;
+}
+
+/* Buttons */
+.btn {
+    width: 100%;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border: none;
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+.btn-danger {
+    display: block;
+    margin: 20px auto;
+    width: 150px;
+    text-align: center;
+
+}
+
+/* Logout Button */
+.mt-4.text-center {
+    margin-top: 30px;
+}
+
+
 {% endblock %}

@@ -2,6 +2,84 @@
 
 {% block title %}Leave information{% endblock %}
 
+
+{% block container %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-center mb-3 text-white">
+        <h2>Leave List</h2>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Username</th>
+                    <th>Role</th>
+                    <th>Leave Start Date</th>
+                    <th>Leave End Date</th>
+                    <th>Reason</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody class="table-light">
+                {% for leave in leaves %}
+                <tr>
+                    <td>{{ leave.user.username }}</td>
+                    <td>{{ leave.user.role }}</td>
+                    <td>{{ leave.start_date }}</td>
+                    <td>{{ leave.end_date }}</td>
+                    <td>{{ leave.reason }}</td>
+                    <td>
+                        <select class="form-select status-dropdown" data-leave-id="{{ leave.id }}">
+                            <option value="Pending" {% if leave.status == "pending" %}selected{% endif %}>Pending</option>
+                            <option value="Approved" {% if leave.status == "approved" %}selected{% endif %}>Approved</option>
+                            <option value="Rejected" {% if leave.status == "rejected" %}selected{% endif %}>Rejected</option>
+                        </select>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <a href="{% url 'admin_app:admin_dashboard' %}" class="btn btn-back">Back</a>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".status-dropdown").forEach(dropdown => {
+        dropdown.addEventListener("change", function () {
+            let leaveId = this.getAttribute("data-leave-id");
+            let newStatus = this.value;
+
+            fetch("{% url 'admin_app:update_leave_status' %}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": "{{ csrf_token }}"
+                },
+                body: JSON.stringify({
+                    leave_id: leaveId,
+                    status: newStatus
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("Status updated successfully!");
+                } else {
+                    alert("Failed to update status.");
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        });
+    });
+});
+</script>
+
+{% endblock %}
+
+
+
 {% block style %}
     /* Table Styling */
     .table {
@@ -111,80 +189,5 @@
         transform: scale(1.05);
         box-shadow: 3px 3px 12px rgba(108, 117, 125, 0.5);
     }
-
-{% endblock %}
-
-{% block container %}
-<div class="container mt-4">
-    <div class="d-flex justify-content-center mb-3 text-white">
-        <h2>Leave List</h2>
-    </div>
-
-    <div class="table-responsive">
-        <table class="table table-bordered table-striped">
-            <thead class="table-dark">
-                <tr>
-                    <th>Username</th>
-                    <th>Role</th>
-                    <th>Leave Start Date</th>
-                    <th>Leave End Date</th>
-                    <th>Reason</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody class="table-light">
-                {% for leave in leaves %}
-                <tr>
-                    <td>{{ leave.user.username }}</td>
-                    <td>{{ leave.user.role }}</td>
-                    <td>{{ leave.start_date }}</td>
-                    <td>{{ leave.end_date }}</td>
-                    <td>{{ leave.reason }}</td>
-                    <td>
-                        <select class="form-select status-dropdown" data-leave-id="{{ leave.id }}">
-                            <option value="Pending" {% if leave.status == "pending" %}selected{% endif %}>Pending</option>
-                            <option value="Approved" {% if leave.status == "approved" %}selected{% endif %}>Approved</option>
-                            <option value="Rejected" {% if leave.status == "rejected" %}selected{% endif %}>Rejected</option>
-                        </select>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    <a href="{% url 'admin_app:admin_dashboard' %}" class="btn btn-back">Back</a>
-</div>
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll(".status-dropdown").forEach(dropdown => {
-        dropdown.addEventListener("change", function () {
-            let leaveId = this.getAttribute("data-leave-id");
-            let newStatus = this.value;
-
-            fetch("{% url 'admin_app:update_leave_status' %}", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-CSRFToken": "{{ csrf_token }}"
-                },
-                body: JSON.stringify({
-                    leave_id: leaveId,
-                    status: newStatus
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert("Status updated successfully!");
-                } else {
-                    alert("Failed to update status.");
-                }
-            })
-            .catch(error => console.error("Error:", error));
-        });
-    });
-});
-</script>
 
 {% endblock %}

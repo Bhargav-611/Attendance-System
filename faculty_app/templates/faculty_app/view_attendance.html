@@ -36,3 +36,75 @@
 </div>
 
 {% endblock %}
+
+{% block style %}
+/* General Styling */
+body {
+    background-color: #212529;
+    color: white;
+}
+
+/* Container Styling */
+.container {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* Card Styling */
+.card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Card Header */
+.card-header {
+    background: #007bff; /* Primary Blue */
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* Table Styling */
+.table {
+    background: white;
+    color: black;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+/* Table Header */
+.table thead {
+    background: #343a40; /* Dark header */
+    color: white;
+}
+
+/* Table Rows */
+.table tbody tr:hover {
+    background: #f8f9fa; /* Light hover effect */
+}
+
+/* No Attendance Message */
+p {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Centering Back Button */
+.d-flex.justify-content-center {
+    margin-bottom: 15px;
+}
+
+{% endblock %}

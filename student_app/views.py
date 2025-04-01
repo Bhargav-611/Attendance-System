@@ -37,10 +37,10 @@ def profile(request):
     student = Student.objects.get(user=request.user)
     return render(request, "profile.html", {"obj": student})
 
-@student_required
-def show_attendance(request):
-    attendance = Attendance.objects.filter(student=Student.objects.get(user=request.user))
-    return render(request, "student_app/show_attendance.html", {"attendance": attendance})
+# @student_required
+# def show_attendance(request):
+#     attendance = Attendance.objects.filter(student=Student.objects.get(user=request.user))
+#     return render(request, "student_app/show_attendance.html", {"attendance": attendance})
 
 @student_required
 def daily_attendance(request):
@@ -72,7 +72,10 @@ def subject_wise_attendance(request):
     for subject in subjects:
         lectures = Lecture.objects.filter(subject=subject)  # Get all lectures for the subject
         total_lectures = lectures.count()
+        print(total_lectures)
         attended_lectures = Attendance.objects.filter(student=student, lecture__subject=subject, status="present").count()
+
+        print(attended_lectures)
 
         attendance_percentage = round((attended_lectures / total_lectures) * 100, 2) if total_lectures > 0 else 0
 

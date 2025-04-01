@@ -5,7 +5,7 @@
 {% block container %}
 
 <div class="container mt-5 ">
-    <h1 class="text-center text-white">Admin Dashboard</h1>
+    <h1 class="text-center text-white">Student Dashboard</h1>
     <h2 class="text-white">Welcome, {{ user.username }}!</h2>
     <p class="text-white">Your email: {{ user.email }}</p>
     
@@ -96,3 +96,59 @@
     </div>
 </div>
 {% endblock %}
+
+
+{% block style %}
+body {
+    background-color: #212529; /* Dark background for contrast */
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.1); /* Slight transparency for effect */
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Soft shadow */
+    transition: transform 0.2s ease-in-out;
+    min-height: 200px;
+    max-height: 200px;
+}
+
+.card:hover {
+    transform: scale(1.05); /* Slight zoom on hover */
+}
+
+.card-body {
+    text-align: center;
+}
+
+h1, h2, p {
+    text-align: center;
+}
+
+.btn {
+    width: 100%;
+
+}
+
+.btn-success {
+    background-color: #28a745;
+    border: none;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+.btn-danger {
+    display: block;
+    margin: auto;
+    width: 150px;
+    text-align: center;
+}
+
+{% endblock  %}

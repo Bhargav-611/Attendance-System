@@ -53,26 +53,26 @@ def show_student_attendance(request):
 
 def scan_barcode(camera_index=0):
     """Scans a barcode and returns the student ID."""
-    print("📷 Starting camera...")
+    print("Starting camera...")
 
     cap = cv2.VideoCapture(camera_index)
 
     if not cap.isOpened():
-        print("❌ Error: Camera not found or cannot be opened.")
+        print("Error: Camera not found or cannot be opened.")
         return None
 
-    print("🔍 Scanning for student barcode... Press 'q' to exit.")
+    print("Scanning for student barcode... Press 'q' to exit.")
 
     while True:
         ret, frame = cap.read()
         if not ret:
-            print("❌ Failed to capture frame. Exiting.")
+            print("Failed to capture frame. Exiting.")
             break
 
         barcodes = decode(frame)
         for barcode in barcodes:
             barcode_data = barcode.data.decode('utf-8')  # Extract student ID
-            print(f"✅ Detected Barcode: {barcode_data}")
+            print(f"Detected Barcode: {barcode_data}")
 
             # Draw a rectangle around the barcode
             (x, y, w, h) = barcode.rect
@@ -89,7 +89,7 @@ def scan_barcode(camera_index=0):
 
         # Press 'q' to exit scanning
         if cv2.waitKey(1) & 0xFF == ord('q'):
-            print("👋 Exiting barcode scanner.")
+            print("Exiting barcode scanner.")
             break
 
     cap.release()
@@ -121,7 +121,7 @@ def mark_student_attendance2(request, lecture_id):
     lecture = Lecture.objects.get(id=lecture_id)
     attendance_records = Attendance.objects.filter(lecture=lecture)
     
-    student_id = scan_barcode()
+    student_id = scan_barcode(1)
 
     if student_id:
         student_id = student_id.lower()

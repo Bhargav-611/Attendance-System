@@ -7,9 +7,9 @@
 <div class="container mt-4 text-white">
     
     <div class="d-flex justify-content-center">
-        <a href="{% url 'faculty_app:faculty_dashboard' %}" class="btn btn-primary">back</a>
     </div>
     <h2 class="text-center">Students Attendance for {{ attendances.0.faculty.user.username }}</h2>
+    <a href="{% url 'faculty_app:faculty_dashboard' %}" class="btn btn-primary">back</a>
     
     <div class="table-responsive">
         <table class="table table-bordered table-striped">
@@ -38,5 +38,65 @@
         </table>
     </div>
 </div>
+
+{% endblock %}
+
+{% block style %}
+/* General Styling */
+body {
+    background-color: #212529;
+    color: white;
+}
+
+/* Container Styling */
+.container {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* Table Styling */
+.table {
+    background: white;
+    color: black;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+/* Table Header */
+.table thead {
+    background: #343a40; /* Dark header */
+    color: white;
+}
+
+/* Table Rows */
+.table tbody tr:hover {
+    background: #f8f9fa; /* Light hover effect */
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    border: none;
+    color: black;
+}
+
+.btn-warning:hover {
+    background-color: #e0a800;
+}
+
+/* Centering Back Button */
+.d-flex.justify-content-center {
+    margin-bottom: 15px;
+}
 
 {% endblock %}
