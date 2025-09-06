@@ -72,10 +72,10 @@ def subject_wise_attendance(request):
     for subject in subjects:
         lectures = Lecture.objects.filter(subject=subject)  # Get all lectures for the subject
         total_lectures = lectures.count()
-        print(total_lectures)
+        # print(total_lectures)
         attended_lectures = Attendance.objects.filter(student=student, lecture__subject=subject, status="present").count()
 
-        print(attended_lectures)
+        # print(attended_lectures)
 
         attendance_percentage = round((attended_lectures / total_lectures) * 100, 2) if total_lectures > 0 else 0
 

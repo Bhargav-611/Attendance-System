@@ -45,14 +45,8 @@ def view_attendance(request):
     return render(request, "faculty_app/view_attendance.html", {"attendance": attendance})
 
 
-@faculty_required
-def show_student_attendance(request):
-    faculty = Faculty.objects.get(user=request.user)
-    attendances = Attendance.objects.filter(faculty=faculty).order_by("date")
-    return render(request, "faculty_app/show_student_attendance.html", {"attendances": attendances})
 
 def scan_barcode(camera_index=0):
-    """Scans a barcode and returns the student ID."""
     print("Starting camera...")
 
     cap = cv2.VideoCapture(camera_index)
@@ -74,11 +68,6 @@ def scan_barcode(camera_index=0):
             barcode_data = barcode.data.decode('utf-8')  # Extract student ID
             print(f"Detected Barcode: {barcode_data}")
 
-            # Draw a rectangle around the barcode
-            (x, y, w, h) = barcode.rect
-            cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
-            cv2.putText(frame, f"ID: {barcode_data}", (x, y - 10),
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
 
             cap.release()
             cv2.destroyAllWindows()
@@ -119,9 +108,8 @@ def mark_student_attendance(request):
 @faculty_required
 def mark_student_attendance2(request, lecture_id):
     lecture = Lecture.objects.get(id=lecture_id)
-    attendance_records = Attendance.objects.filter(lecture=lecture)
     
-    student_id = scan_barcode(1)
+    student_id = scan_barcode()
 
     if student_id:
         student_id = student_id.lower()
@@ -144,7 +132,13 @@ def mark_student_attendance2(request, lecture_id):
     else:
         return redirect("faculty_app:faculty_dashboard")
     
-        
+
+@faculty_required
+def show_student_attendance(request):
+    faculty = Faculty.objects.get(user=request.user)
+    attendances = Attendance.objects.filter(faculty=faculty).order_by("date")
+    return render(request, "faculty_app/show_student_attendance.html", {"attendances": attendances})
+
 
 @faculty_required
 def edit_student_attendance(request, attendance_id):
